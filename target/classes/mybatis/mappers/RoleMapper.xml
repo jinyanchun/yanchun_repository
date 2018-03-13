@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="cn.oa.mapper.RoleMapper">
+  
+  <resultMap type="Role" id="roleList" autoMapping="true">
+	  <id column="role_id" property="roleId"/>
+	  <result column="role_name" property="roleName"/>
+  </resultMap>
+  
+  	<insert id="roleAdd" useGeneratedKeys="true" parameterType="cn.oa.pojo.Role">
+  	INSERT INTO sys_role (
+		role_id,
+		role_name,
+		status,
+		pid,
+		create_time,
+		update_time,
+		)
+		VALUES
+		(
+		#{roleId},#{roleName},#{status},#{pid},#{createTime},#{updateTime})
+  	</insert>
+  	<select id="queryAll" parameterType="CommonParameter" resultMap="roleList">
+  		select * from sys_role limit #{current},#{rows}
+  	</select>
+  </mapper>

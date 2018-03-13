@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.oa.mapper.AccountMapper">
+	<!-- 新增 -->
+	<insert id="savaAccount" parameterType="cn.oa.pojo.Account"
+		useGeneratedKeys="true" keyProperty="account_id">
+		INSERT INTO sys_account (
+		account_id,
+		account_name,
+		nick_name,
+		head_url,
+		create_time,
+		update_time,
+		is_lock,
+		PASSWORD,
+		sex
+		)
+		VALUES
+		(
+		#{accountId},#{accountName},#{nickName},#{headUrl},#{createTime},#{updateTime},#{isLock},#{password},#{sex})
+	</insert>
+	<resultMap type="cn.oa.pojo.Account" id="resultAccounts"
+		autoMapping="true">
+		<id column="account_id" property="accountId" />
+		<result column="account_name" property="accountName" />
+	</resultMap>
+
+	<select id="queryAccount" parameterType="cn.oa.pojo.CommonParameter"
+		resultMap="resultAccounts">
+		select * from sys_account limit #{current},#{rows}
+	</select>
+	<select id="countAccount" resultType="java.lang.Integer">
+		select count(*) from sys_account
+	</select>
+	<!-- 删除 -->
+	<delete id="deleteAccount" parameterType="java.util.List">
+		delete from sys_account where account_id in
+		<foreach collection="list" item="accountId" open="(" close=")"
+			separator=",">
+			#{accountId}
+		</foreach>
+	</delete>
+	<select id="getAccountById" parameterType="Long" resultMap="resultAccounts">
+		select * from sys_account where account_id = #{id}
+	</select>
+
+	<update id="updateAccount" parameterType="cn.oa.pojo.Account">
+			update sys_account set
+			account_name = #{accountName},
+			nick_name = #{nickName},
+			head_url = #{headUrl},
+			update_time = #{updateTime},
+			is_lock = #{isLock},
+			PASSWORD = #{password},
+			sex = #{sex}
+			where account_id = #{accountId}
+	</update>
+</mapper>

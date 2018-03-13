@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="cn.oa.mapper.RightsMapper">
+  	<insert id="addRights" parameterType="cn.oa.pojo.Rights"
+  	useGeneratedKeys="true" keyProperty="right_id">
+  		INSERT INTO sys_right (
+		right_id,
+		right_name,
+		right_site,
+		pid,
+		type,
+		is_lock,
+		create_time,
+		update_time,
+		)
+		VALUES
+		(
+		#{rightId},#{rightName},#{rightSite},#{pid},#{type},#{isLock},#{createTime},#{updateTime})
+  	</insert>
+  </mapper>
